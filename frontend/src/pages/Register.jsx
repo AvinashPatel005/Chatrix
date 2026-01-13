@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 
 const AVAILABLE_LANGUAGES = [
     'English', 'Spanish', 'French', 'German', 'Italian',
-    'Portuguese', 'Chinese', 'Japanese', 'Russian', 'Arabic', 'Hindi', 'Korean'
+    'Portuguese', 'Chinese', 'Japanese', 'Russian', 'Arabic', 'Hindi', 'Bengali', 'Odia (Oriya)', 'Korean'
 ];
 
 const Register = () => {

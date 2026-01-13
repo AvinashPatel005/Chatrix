@@ -12,8 +12,10 @@ const EditProfileModal = ({ isOpen, onClose }) => {
     const [loading, setLoading] = useState(false);
 
     // List of common languages for selection
-    const commonLanguages = ["English", "Spanish", "French", "German", "Chinese", "Japanese", "Korean", "Italian", "Portuguese", "Russian", "Hindi", "Arabic"];
-
+    const commonLanguages = [
+        'English', 'Spanish', 'French', 'German', 'Italian',
+        'Portuguese', 'Chinese', 'Japanese', 'Russian', 'Arabic', 'Hindi', 'Bengali', 'Odia (Oriya)', 'Korean'
+    ];
     useEffect(() => {
         if (user && isOpen) {
             setUsername(user.username || '');
