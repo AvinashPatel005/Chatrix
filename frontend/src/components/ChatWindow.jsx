@@ -162,8 +162,8 @@ const ChatWindow = ({ conversation, user }) => {
                     senderId: user._id,
                     conversationId: conversation._id,
                     content: isVideo ? 'Started a Video Call' : 'Started a Voice Call',
-                    originalLanguage: user.nativeLanguages?.[0] || 'en',
-                    targetLanguage: otherUser?.nativeLanguages?.[0] || 'es',
+                    originalLanguage: conversation?.learningMap?.[otherUser?._id] || user.nativeLanguages?.[0] || 'en',
+                    targetLanguage: conversation?.learningMap?.[user._id] || otherUser?.nativeLanguages?.[0] || 'es',
                     type: 'call_invite'
                 };
                 socket.emit('send_message', messageData);
@@ -204,8 +204,8 @@ const ChatWindow = ({ conversation, user }) => {
                 senderId: user._id,
                 conversationId: conversation._id,
                 content: base64,
-                originalLanguage: user.nativeLanguages?.[0] || 'en',
-                targetLanguage: otherUser?.nativeLanguages?.[0] || 'es',
+                originalLanguage: conversation?.learningMap?.[otherUser?._id] || user.nativeLanguages?.[0] || 'en',
+                targetLanguage: conversation?.learningMap?.[user._id] || otherUser?.nativeLanguages?.[0] || 'es',
                 type: 'image'
             };
             if (socket) socket.emit('send_message', messageData);
@@ -229,8 +229,8 @@ const ChatWindow = ({ conversation, user }) => {
             senderId: user._id,
             conversationId: conversation._id,
             content: newMessage,
-            originalLanguage: user.nativeLanguages?.[0] || 'en',
-            targetLanguage: otherUser?.nativeLanguages?.[0] || 'es',
+            originalLanguage: conversation?.learningMap?.[otherUser?._id] || user.nativeLanguages?.[0] || 'en',
+            targetLanguage: conversation?.learningMap?.[user._id] || otherUser?.nativeLanguages?.[0] || 'es',
             type: 'text'
         };
 
