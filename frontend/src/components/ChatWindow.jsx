@@ -64,7 +64,7 @@ const CallInviteMessage = ({ client, callId, onJoin }) => {
     );
 };
 
-const ChatWindow = ({ conversation, user }) => {
+const ChatWindow = ({ conversation, user, onBack }) => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [translationOn, setTranslationOn] = useState(true);
@@ -272,33 +272,38 @@ const ChatWindow = ({ conversation, user }) => {
             )}
 
             {/* Header */}
-            <div className="navbar bg-base-100 border-b border-base-200 px-4 h-16 shadow-sm z-20">
-                <div className="flex-1 flex items-center gap-3">
-                    <UserAvatar user={otherUser} size="w-10" />
-                    <div>
-                        <div className="font-bold text-lg">{otherUser?.username}</div>
-                        <div className={`text-xs font-semibold ${onlineUsers.includes(otherUser?._id) ? "text-success" : "opacity-50"}`}>
+            <div className="navbar bg-base-100 border-b border-base-200 px-2 md:px-4 h-16 shadow-sm z-20">
+                <div className="flex-1 flex items-center gap-2 md:gap-3 min-w-0">
+                    {onBack && (
+                        <button onClick={onBack} className="btn btn-ghost btn-circle btn-sm md:hidden shrink-0">
+                            <i className="fas fa-arrow-left"></i>
+                        </button>
+                    )}
+                    <UserAvatar user={otherUser} size="w-8 md:w-10" />
+                    <div className="min-w-0">
+                        <div className="font-bold text-sm md:text-lg truncate">{otherUser?.username}</div>
+                        <div className={`text-[10px] md:text-xs font-semibold ${onlineUsers.includes(otherUser?._id) ? "text-success" : "opacity-50"}`}>
                             {onlineUsers.includes(otherUser?._id) ? "Online" : "Offline"}
                         </div>
                     </div>
                 </div>
-                <div className="flex-none flex items-center gap-4">
-                    <div className="form-control">
+                <div className="flex-none flex items-center gap-1 md:gap-4">
+                    <div className="form-control hidden xs:block">
                         <label className="label cursor-pointer gap-2">
-                            <span className="label-text text-xs font-semibold">Translate</span>
+                            <span className="label-text text-xs font-semibold hidden sm:inline">Translate</span>
                             <input
                                 type="checkbox"
-                                className="toggle toggle-sm toggle-primary"
+                                className="toggle toggle-xs md:toggle-sm toggle-primary"
                                 checked={translationOn}
                                 onChange={() => setTranslationOn(!translationOn)}
                             />
                         </label>
                     </div>
-                    <button onClick={() => startCall(true)} className="btn btn-ghost btn-circle text-primary">
-                        <i className="fas fa-video text-lg"></i>
+                    <button onClick={() => startCall(true)} className="btn btn-ghost btn-circle btn-sm md:btn-md text-primary">
+                        <i className="fas fa-video text-sm md:text-lg"></i>
                     </button>
-                    <button onClick={() => startCall(false)} className="btn btn-ghost btn-circle text-success">
-                        <i className="fas fa-phone text-lg"></i>
+                    <button onClick={() => startCall(false)} className="btn btn-ghost btn-circle btn-sm md:btn-md text-success">
+                        <i className="fas fa-phone text-sm md:text-lg"></i>
                     </button>
                 </div>
             </div>
@@ -307,25 +312,25 @@ const ChatWindow = ({ conversation, user }) => {
             {/* Messages */}
             <div
                 ref={messageContainerRef}
-                className="flex-1 overflow-y-auto p-4 space-y-4 bg-base-200/50 custom-scrollbar"
+                className="flex-1 overflow-y-auto p-2 md:p-4 space-y-4 bg-base-200/50 custom-scrollbar"
             >
                 {messages.map((msg, index) => {
                     const isMe = msg.sender === user._id || msg.sender._id === user._id; // Handle populated or id
 
                     let messageContent;
                     if (msg.type === 'image') {
-                        messageContent = <img src={msg.originalText} alt="Shared" className="rounded-xl max-h-60" />;
+                        messageContent = <img src={msg.originalText} alt="Shared" className="rounded-xl max-h-40 md:max-h-60" />;
                     } else if (msg.type === 'call_invite') {
                         const isVideo = msg.originalText.toLowerCase().includes('video');
                         messageContent = (
-                            <div className="w-full min-w-[220px]">
-                                <div className="flex items-center gap-4 mb-3">
-                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm ${isMe ? 'bg-white/20' : 'bg-base-content/5'}`}>
-                                        <i className={`fas ${isVideo ? 'fa-video' : 'fa-phone'} text-xl`}></i>
+                            <div className="w-full min-w-[200px] md:min-w-[220px]">
+                                <div className="flex items-center gap-3 md:gap-4 mb-3">
+                                    <div className={`w-10 h-10 md:w-12 md:h-12 rounded-2xl flex items-center justify-center shadow-sm ${isMe ? 'bg-white/20' : 'bg-base-content/5'}`}>
+                                        <i className={`fas ${isVideo ? 'fa-video' : 'fa-phone'} text-lg md:text-xl`}></i>
                                     </div>
                                     <div>
-                                        <h3 className="font-bold">{isVideo ? 'Video Call' : 'Voice Call'}</h3>
-                                        <p className="text-xs opacity-75">{msg.originalText}</p>
+                                        <h3 className="font-bold text-sm md:text-base">{isVideo ? 'Video Call' : 'Voice Call'}</h3>
+                                        <p className="text-[10px] md:text-xs opacity-75">{msg.originalText}</p>
                                     </div>
                                 </div>
                                 <div className="w-full">
@@ -341,10 +346,10 @@ const ChatWindow = ({ conversation, user }) => {
                         messageContent = (
                             <div className="flex flex-col">
                                 <div className="flex items-center justify-between">
-                                    <span className="whitespace-pre-wrap">{msg.originalText}</span>
+                                    <span className="whitespace-pre-wrap text-sm md:text-base">{msg.originalText}</span>
                                     <button
                                         onClick={(e) => { e.stopPropagation(); speak(msg.originalText, msg.originalLanguage); }}
-                                        className="btn btn-ghost btn-xs btn-circle opacity-50 hover:opacity-100 min-h-0 h-6 w-6 ml-2"
+                                        className="btn btn-ghost btn-xs btn-circle opacity-50 hover:opacity-100 min-h-0 h-6 w-6 ml-2 shrink-0"
                                         title="Play Pronunciation"
                                     >
                                         <i className="fas fa-volume-high text-xs"></i>
@@ -361,16 +366,16 @@ const ChatWindow = ({ conversation, user }) => {
                     }
 
                     const isImage = msg.type === 'image';
-                    const bubbleClass = `chat-bubble shadow-sm max-w-[60%] ${isMe ? 'chat-bubble-primary' : 'chat-bubble-neutral'} ${isImage ? 'p-1' : ''}`;
+                    const bubbleClass = `chat-bubble shadow-sm max-w-[85%] md:max-w-[60%] ${isMe ? 'chat-bubble-primary' : 'chat-bubble-neutral'} ${isImage ? 'p-1' : ''}`;
 
                     return (
                         <div key={index} className={`chat ${isMe ? 'chat-end' : 'chat-start'}`}>
-                            <div className="chat-image avatar">
+                            <div className="chat-image avatar hidden md:block">
                                 <UserAvatar user={isMe ? user : otherUser} size="w-10" />
                             </div>
-                            <div className="chat-header text-xs opacity-50 mb-1">
+                            <div className="chat-header text-[10px] md:text-xs opacity-50 mb-1">
                                 {isMe ? 'You' : (msg.sender.username || otherUser.username)}
-                                <time className="text-xs opacity-50 ml-1">{new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</time>
+                                <time className="text-[10px] md:text-xs opacity-50 ml-1">{new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</time>
                             </div>
                             <div className={bubbleClass}>
                                 {messageContent}
@@ -381,7 +386,7 @@ const ChatWindow = ({ conversation, user }) => {
             </div>
 
             {/* Input */}
-            <div className="p-4 bg-base-100 border-t border-base-200 flex items-center gap-3">
+            <div className="p-2 md:p-4 bg-base-100 border-t border-base-200 flex items-center gap-2 md:gap-3">
                 <input
                     type="file"
                     accept="image/*"
@@ -389,13 +394,13 @@ const ChatWindow = ({ conversation, user }) => {
                     ref={fileInputRef}
                     onChange={handleImageUpload}
                 />
-                <button onClick={() => fileInputRef.current?.click()} className="btn btn-ghost btn-circle">
-                    <i className="fas fa-paperclip text-xl"></i>
+                <button onClick={() => fileInputRef.current?.click()} className="btn btn-ghost btn-circle btn-sm md:btn-md">
+                    <i className="fas fa-paperclip text-lg"></i>
                 </button>
 
                 <input
                     type="text"
-                    className="input input-bordered input-md w-full rounded-full focus:outline-none"
+                    className="input input-bordered input-sm md:input-md w-full rounded-full focus:outline-none text-sm md:text-base"
                     placeholder="Type a message..."
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
@@ -403,8 +408,8 @@ const ChatWindow = ({ conversation, user }) => {
                 />
                 <button
                     onClick={handleSend}
-                    className="btn btn-primary btn-circle btn-md text-white shadow-lg">
-                    <i className="fas fa-paper-plane text-lg"></i>
+                    className="btn btn-primary btn-circle btn-sm md:btn-md text-white shadow-lg shrink-0">
+                    <i className="fas fa-paper-plane text-sm md:text-lg"></i>
                 </button>
             </div>
         </div>

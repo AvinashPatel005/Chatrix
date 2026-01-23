@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import bgImage from '../assets/i.png';
 
 const AVAILABLE_LANGUAGES = [
     'English', 'Spanish', 'French', 'German', 'Italian',
@@ -69,20 +70,41 @@ const Register = () => {
     return (
         <div className="min-h-screen bg-base-300 flex items-center justify-center py-12 px-4">
             <div className="card w-full max-w-4xl bg-base-100 shadow-2xl overflow-hidden grid lg:grid-cols-2">
-
                 {/* Visual Side */}
-                <div className="bg-primary text-primary-content p-10 flex flex-col justify-center text-center lg:text-left">
-                    <h1 className="text-4xl font-bold mb-4">Welcome to Chatrix</h1>
-                    <p className="text-lg opacity-90">
-                        The ultimate platform for serious language exchange.
-                        Define exactly what you speak and what you want to learn.
-                    </p>
-                    <div className="mt-8 space-y-2 opacity-80 text-sm">
-                        <div className="flex items-center gap-2"><i className="fas fa-check-circle"></i> Precise Matching</div>
-                        <div className="flex items-center gap-2"><i className="fas fa-check-circle"></i> Dedicated Connections</div>
-                        <div className="flex items-center gap-2"><i className="fas fa-check-circle"></i> Connection-Scoped Chat</div>
+                <div
+                    className="relative bg-primary text-primary-content flex flex-col justify-end"
+                    style={{
+                        backgroundImage: `url(${bgImage})`,
+                        backgroundSize: 'contain',
+                        backgroundPosition: 'top center',
+                        backgroundRepeat: 'no-repeat'
+                    }}
+                >
+                    {/* Spacer to reserve image space */}
+                    <div className="h-64 sm:h-72 lg:h-80"></div>
+
+                    {/* Text Section with Background */}
+                    <div className="bg-primary p-10 text-center lg:text-left">
+                        <h1 className="text-4xl font-bold mb-4">Welcome to Chatrix</h1>
+
+                        <p className="text-lg opacity-90">
+                            Share the languages you speak and learn with people who match your goals.
+                        </p>
+
+                        <div className="mt-8 space-y-2 opacity-80 text-sm">
+                            <div className="flex items-center gap-2 justify-center lg:justify-start">
+                                <i className="fas fa-check-circle"></i> Find the right language partners
+                            </div>
+                            <div className="flex items-center gap-2 justify-center lg:justify-start">
+                                <i className="fas fa-check-circle"></i> Build real one-to-one connections
+                            </div>
+                            <div className="flex items-center gap-2 justify-center lg:justify-start">
+                                <i className="fas fa-check-circle"></i> Chat privately and comfortably
+                            </div>
+                        </div>
                     </div>
                 </div>
+
 
                 {/* Form Side */}
                 <form onSubmit={handleSubmit} className="p-8 lg:p-10 flex flex-col gap-6 overflow-y-auto max-h-[90vh]">
@@ -107,7 +129,6 @@ const Register = () => {
 
                     <div className="divider">LANGUAGES</div>
 
-                    {/* Native Languages */}
                     {/* Native Languages */}
                     <div className="form-control">
                         <label className="label"><span className="label-text font-bold">I speak (Native)</span></label>

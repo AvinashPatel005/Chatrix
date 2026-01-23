@@ -53,7 +53,7 @@ const Sidebar = ({ onSelectConversation, selectedConversationId }) => {
 
 
     return (
-        <div className="w-80 bg-base-300 flex flex-col h-full border-r border-base-content/10">
+        <div className="w-full md:w-80 bg-base-300 flex flex-col h-full border-r border-base-content/10">
             {/* Header */}
             {/* Header */}
             <div className="p-6 bg-base-200 border-b border-base-content/10 flex flex-col gap-4 shadow-lg z-10 relative">

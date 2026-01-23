@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import NavigationRail from '../components/NavigationRail';
 import UserAvatar from '../components/UserAvatar';
+import BottomNav from '../components/BottomNav';
 
 const RequestsPage = () => {
     const [activeTab, setActiveTab] = useState('received');
@@ -127,7 +128,10 @@ const RequestsPage = () => {
 
     return (
         <div className="min-h-screen bg-base-200/50 flex font-sans overflow-hidden">
-            <NavigationRail />
+            <div className="hidden md:block">
+                <NavigationRail />
+            </div>
+            <BottomNav />
 
             <div className="flex-1 overflow-y-auto relative custom-scrollbar">
 

@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import NavigationRail from '../components/NavigationRail';
 import UserAvatar from '../components/UserAvatar';
+import BottomNav from '../components/BottomNav';
 
 const DiscoveryPage = () => {
     const [matches, setMatches] = useState([]);
@@ -75,7 +76,10 @@ const DiscoveryPage = () => {
 
     return (
         <div className="h-screen bg-base-200/50 flex font-sans overflow-hidden">
-            <NavigationRail />
+            <div className="hidden md:block">
+                <NavigationRail />
+            </div>
+            <BottomNav />
 
             <div className="flex-1 overflow-y-auto overflow-x-hidden relative custom-scrollbar">
 
