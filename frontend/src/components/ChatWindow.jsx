@@ -288,9 +288,9 @@ const ChatWindow = ({ conversation, user, onBack }) => {
                     </div>
                 </div>
                 <div className="flex-none flex items-center gap-1 md:gap-4">
-                    <div className="form-control hidden xs:block">
+                    <div className="form-control  xs:block">
                         <label className="label cursor-pointer gap-2">
-                            <span className="label-text text-xs font-semibold hidden sm:inline">Translate</span>
+                            <span className="label-text text-xs font-semibold  sm:inline">Translate</span>
                             <input
                                 type="checkbox"
                                 className="toggle toggle-xs md:toggle-sm toggle-primary"
