@@ -35,9 +35,8 @@ const NavigationRail = () => {
         <div className="w-20 bg-base-300 flex flex-col items-center py-6 gap-6 border-r border-base-content/10 h-[100vh]">
             {/* Logo or Brand Icon (Optional) */}
             <div className="mb-4">
-                <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center text-primary font-black text-xl">
-                    L
-                </div>
+                <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+
             </div>
 
             {/* Navigation Items */}
