@@ -48,6 +48,14 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(!formData.username || !formData.email || !formData.password) {
+            setError('Please fill in all required fields.');
+            return;
+        }
+        if(formData.password.length < 6) {
+            setError('Password must be at least 6 characters.');
+            return;
+        }
 
         if (nativeLanguages.length === 0 || learningLanguages.length === 0) {
             setError('Please add at least one native and one learning language.');
