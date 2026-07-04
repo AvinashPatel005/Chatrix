@@ -2,44 +2,22 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Checkout') {
+        stage('Verify Workspace') {
             steps {
-                checkout scm
+                sh 'pwd'
+                sh 'ls -la'
             }
         }
 
-        stage('Backend Install') {
+        stage('ForgeAI Scan') {
             steps {
-                dir('backend') {
-                    sh 'npm install'
-                }
+                forgeAI(
+                    analyzers: [
+                        'code-review',
+                        'vulnerability'
+                    ]
+                )
             }
-        }
-
-        stage('Frontend Install') {
-            steps {
-                dir('frontend') {
-                    sh 'npm install'
-                }
-            }
-        }
-
-        stage('Build') {
-            steps {
-                dir('frontend') {
-                    sh 'npm run build'
-                }
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build Successful'
-        }
-        failure {
-            echo 'Build Failed'
         }
     }
 }
