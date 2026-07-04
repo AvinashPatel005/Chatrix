@@ -18,6 +18,11 @@ pipeline {
                     ]
                 )
             }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'forgeai-reports/**', allowEmptyArchive: true
+                }
+            }
         }
     }
 }
